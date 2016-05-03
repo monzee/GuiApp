@@ -68,6 +68,9 @@ public class LanternaModule {
     @Provides
     @Singleton
     static WindowBasedTextGUI provideGui(Screen screen) {
-        return new MultiWindowTextGUI(screen, TextColor.ANSI.BLUE);
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, TextColor.ANSI.BLUE);
+        gui.setEOFWhenNoWindows(true);
+        gui.setBlockingIO(false);
+        return gui;
     }
 }

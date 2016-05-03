@@ -24,16 +24,18 @@
 package ph.codeia.guiapp.tui;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.gui2.AbstractWindow;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutData;
-import com.googlecode.lanterna.gui2.Panel;
+import com.googlecode.lanterna.gui2.Panels;
 import com.googlecode.lanterna.gui2.TextBox;
 import dagger.Module;
 import dagger.Provides;
-import java.util.logging.Logger;
+import java.util.Arrays;
+import ph.codeia.guiapp.backend.chrome.ChromeContract;
 import ph.codeia.guiapp.backend.login.LoginContract;
 import ph.codeia.guiapp.backend.login.LoginContract.Field;
 
@@ -41,56 +43,61 @@ import ph.codeia.guiapp.backend.login.LoginContract.Field;
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-public class LoginView extends Panel implements LoginContract.View {
+public class LoginView extends AbstractWindow implements LoginContract.View {
     private final TextBox username = new TextBox();
     private final TextBox password = new TextBox();
     private final Label usernameError = new Label("");
     private final Label passwordError = new Label("");
-    private final Label status = new Label("");
-    private final Logger logger;
+    private final ChromeContract.View chrome;
 
     @Module
     public static class Provider {
         @Provides
-        static LoginView provide(LoginContract.Presenter p, Logger l) {
-            LoginView v = new LoginView(p, l);
+        static LoginView provide(LoginContract.Presenter p, ChromeContract.View c) {
+            LoginView v = new LoginView(p, c);
             p.bind(v);
             return v;
         }
     }
 
-    public LoginView(LoginContract.Presenter p, Logger log) {
-        super();
-        logger = log;
-        setLayoutManager(new GridLayout(2));
+    public LoginView(LoginContract.Presenter p, ChromeContract.View c) {
+        super("Login");
+        chrome = c;
 
         TerminalSize inputWidth = new TerminalSize(15, 1);
         TerminalSize labelWidth = new TerminalSize(10, 1);
-        username.setPreferredSize(inputWidth);
-        usernameError.setPreferredSize(inputWidth);
         LayoutData fill = GridLayout.createHorizontallyFilledLayoutData(1);
-        LayoutData fat = GridLayout.createHorizontallyFilledLayoutData(2);
-
-        addComponent(status, fat);
-
-        addComponent(new Label("Username").setPreferredSize(labelWidth));
-        addComponent(username, fill);
-        addComponent(new EmptySpace());
-        addComponent(usernameError, fill);
-
-        addComponent(new Label("Password").setPreferredSize(labelWidth));
-        addComponent(password, fill);
-        addComponent(new EmptySpace());
-        addComponent(passwordError, fill);
+        username.setPreferredSize(inputWidth).setLayoutData(fill);
+        usernameError.setLayoutData(fill);
+        password.setPreferredSize(inputWidth).setLayoutData(fill);
+        passwordError.setLayoutData(fill);
 
         Runnable login = () -> p.tryLogin(username.getText(), password.getText());
-        addComponent(new Button("Login", login),
-                GridLayout.createHorizontallyEndAlignedLayoutData(2));
+        LayoutData doubleSpanEnd = GridLayout.createHorizontallyEndAlignedLayoutData(2);
+
+        setComponent(Panels.grid(2,
+                new EmptySpace().setLayoutData(doubleSpanEnd),
+
+                new Label("username").setPreferredSize(labelWidth),
+                username,
+
+                new EmptySpace(),
+                usernameError,
+
+                new Label("password").setPreferredSize(labelWidth),
+                password,
+
+                new EmptySpace(),
+                passwordError,
+
+                new Button("Login", login).setLayoutData(doubleSpanEnd)
+        ));
+        setHints(Arrays.asList(Hint.CENTERED));
     }
 
     @Override
     public void tell(String message) {
-        status.setText(emptyStringOr(message));
+        chrome.tell(message);
     }
 
     @Override
@@ -102,9 +109,6 @@ public class LoginView extends Panel implements LoginContract.View {
     }
 
     private static String emptyStringOr(String s) {
-        if (s == null) {
-            return "";
-        }
-        return s;
+        return s == null ? "" : s;
     }
 }

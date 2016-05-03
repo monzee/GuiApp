@@ -21,22 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp;
-
-import dagger.Component;
-import javax.inject.Singleton;
-import ph.codeia.guiapp.backend.login.LoginContract;
-import ph.codeia.guiapp.tui.Chrome;
+package ph.codeia.guiapp.backend.chrome;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-@Singleton
-@Component(modules = {
-    GlobalModule.class, ServicesModule.class,
-    LoginContract.Defaults.class,
-})
-public interface Application {
-    CliContext cli(Chrome.Provider c);
+public abstract class ChromeContract {
+    public enum Screen { LOGIN, INDEX, DETAIL }
+
+    public interface View {
+        void tell(String message);
+        void show(Screen screen);
+    }
+
 }

@@ -61,10 +61,10 @@ public abstract class LoginContract {
 
     public interface Service {
         @FormUrlEncoded
-        @POST(value = "/login")
+        @POST("/login")
         Call<String> login(
-                @retrofit2.http.Field(value = "username") String username,
-                @retrofit2.http.Field(value = "password") String password);
+                @retrofit2.http.Field("username") String username,
+                @retrofit2.http.Field("password") String password);
     }
 
     @Module

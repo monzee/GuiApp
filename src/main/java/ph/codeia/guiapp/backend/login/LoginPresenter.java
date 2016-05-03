@@ -50,9 +50,9 @@ public class LoginPresenter implements LoginContract.Presenter, Callback<String>
         if (pending) {
             return;
         }
+        model.set(Field.USERNAME, username);
+        model.set(Field.PASSWORD, password);
         if (isValid(username, password)) {
-            model.set(Field.USERNAME, username);
-            model.set(Field.PASSWORD, password);
             update("logging in...");
             service.login(username, password).enqueue(this);
             pending = true;
