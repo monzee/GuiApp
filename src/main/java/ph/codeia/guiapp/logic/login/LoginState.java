@@ -74,7 +74,7 @@ public class LoginState implements LoginContract.Model {
     }
 
     @Override
-    public <T> void set(LoginContract.Field field, T value) {
+    public void set(LoginContract.Field field, String value) {
         switch (field) {
         case USERNAME:
             username = String.valueOf(value);

@@ -27,7 +27,7 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import ph.codeia.guiapp.logic.Form;
+import ph.codeia.guiapp.logic.Validates;
 import ph.codeia.guiapp.logic.ViewBound;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -56,7 +56,9 @@ public abstract class LoginContract {
         void tryLogin(String username, String password);
     }
 
-    public interface Model extends Form<Field> {
+    public interface Model extends Validates<Field> {
+        void set(Field f, String value);
+        String get(Field f);
     }
 
     public interface Service {

@@ -43,7 +43,7 @@ import ph.codeia.guiapp.logic.login.LoginContract.Field;
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-public class LoginView extends AbstractWindow implements LoginContract.View {
+public class Login extends AbstractWindow implements LoginContract.View {
     private final TextBox username = new TextBox();
     private final TextBox password = new TextBox();
     private final Label usernameError = new Label("");
@@ -53,27 +53,33 @@ public class LoginView extends AbstractWindow implements LoginContract.View {
     @Module
     public static class Provider {
         @Provides
-        static LoginView provide(LoginContract.Presenter p, ChromeContract.View c) {
-            LoginView v = new LoginView(p, c);
+        static LoginContract.View provideInterface(Login view) {
+            return view;
+        }
+
+        @Provides
+        static Login provide(LoginContract.Presenter p, ChromeContract.View c) {
+            Login v = new Login(p, c);
             p.bind(v);
             return v;
         }
     }
 
-    public LoginView(LoginContract.Presenter p, ChromeContract.View c) {
+    public Login(LoginContract.Presenter p, ChromeContract.View c) {
         super("Login");
         chrome = c;
 
         TerminalSize inputWidth = new TerminalSize(15, 1);
         TerminalSize labelWidth = new TerminalSize(10, 1);
         LayoutData fill = GridLayout.createHorizontallyFilledLayoutData(1);
+        LayoutData doubleSpanEnd = GridLayout.createHorizontallyEndAlignedLayoutData(2);
+
         username.setPreferredSize(inputWidth).setLayoutData(fill);
         usernameError.setLayoutData(fill);
         password.setPreferredSize(inputWidth).setLayoutData(fill);
         passwordError.setLayoutData(fill);
 
         Runnable login = () -> p.tryLogin(username.getText(), password.getText());
-        LayoutData doubleSpanEnd = GridLayout.createHorizontallyEndAlignedLayoutData(2);
 
         setComponent(Panels.grid(2,
                 new EmptySpace().setLayoutData(doubleSpanEnd),

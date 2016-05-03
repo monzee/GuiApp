@@ -26,7 +26,7 @@ package ph.codeia.guiapp;
 import dagger.Subcomponent;
 import javax.inject.Singleton;
 import ph.codeia.guiapp.tui.Chrome;
-import ph.codeia.guiapp.tui.LoginView;
+import ph.codeia.guiapp.tui.Login;
 
 /**
  *
@@ -35,7 +35,7 @@ import ph.codeia.guiapp.tui.LoginView;
 @Singleton
 @Subcomponent(modules = {
     LanternaModule.class,
-    LoginView.Provider.class,
+    Login.Provider.class,
     Chrome.Provider.class,
 })
 public interface CliContext {

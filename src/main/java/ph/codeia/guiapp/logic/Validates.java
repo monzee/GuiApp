@@ -26,11 +26,9 @@ package ph.codeia.guiapp.logic;
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
- * @param <Field> an enum of fields that the screen accepts input for
+ * @param <Field>
  */
-public interface Form<Field> {
-    void setError(Field field, String message);
-    String getError(Field field);
-    <T> void set(Field field, T value);
-    <T> T get(Field field);
+public interface Validates<Field> {
+    void setError(Field f, String message);
+    String getError(Field f);
 }

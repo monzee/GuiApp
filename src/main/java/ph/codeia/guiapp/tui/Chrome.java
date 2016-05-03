@@ -32,6 +32,8 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.ResizeListener;
+import com.googlecode.lanterna.terminal.Terminal;
 import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
@@ -46,7 +48,8 @@ import ph.codeia.guiapp.logic.chrome.ChromeContract;
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-public class Chrome extends AbstractWindow implements ChromeContract.View, TextGUI.Listener {
+public class Chrome extends AbstractWindow
+        implements ChromeContract.View, TextGUI.Listener {
 
     @Module
     public static class Provider {
@@ -57,7 +60,7 @@ public class Chrome extends AbstractWindow implements ChromeContract.View, TextG
         }
 
         @Provides
-        ChromeContract.View provideView() {
+        ChromeContract.View provide() {
             return instance;
         }
     }
@@ -66,10 +69,13 @@ public class Chrome extends AbstractWindow implements ChromeContract.View, TextG
     Logger log;
 
     @Inject
+    Terminal terminal;
+
+    @Inject
     WindowBasedTextGUI gui;
 
     @Inject
-    Lazy<LoginView> login;
+    Lazy<Login> login;
 
     private final Label status = new Label("")
             .setBackgroundColor(TextColor.ANSI.BLUE)
@@ -110,9 +116,14 @@ public class Chrome extends AbstractWindow implements ChromeContract.View, TextG
     public void run() {
         gui.addWindow(this);
         gui.addListener(this);
+
+        ResizeListener didResize = (term, size) -> {
+            setPosition(new TerminalPosition(0, size.getRows() - 1));
+        };
+        terminal.addResizeListener(didResize);
+
         Screen s = gui.getScreen();
-        int row = s.getTerminalSize().getRows() - 1;
-        setPosition(new TerminalPosition(0, row));
+        didResize.onResized(terminal, s.getTerminalSize());
         show(ChromeContract.Screen.LOGIN);
         try {
             s.startScreen();
@@ -122,5 +133,4 @@ public class Chrome extends AbstractWindow implements ChromeContract.View, TextG
             log.log(Level.SEVERE, "io error while starting/stopping screen", e);
         }
     }
-
 }

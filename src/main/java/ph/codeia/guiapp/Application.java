@@ -34,7 +34,8 @@ import ph.codeia.guiapp.tui.Chrome;
  */
 @Singleton
 @Component(modules = {
-    GlobalModule.class, ServicesModule.class,
+    GlobalModule.class,
+    ServicesModule.class,
     LoginContract.Defaults.class,
 })
 public interface Application {
