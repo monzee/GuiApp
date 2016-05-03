@@ -25,7 +25,7 @@ package ph.codeia.guiapp;
 
 import dagger.Component;
 import javax.inject.Singleton;
-import ph.codeia.guiapp.backend.login.LoginContract;
+import ph.codeia.guiapp.logic.login.LoginContract;
 import ph.codeia.guiapp.tui.Chrome;
 
 /**

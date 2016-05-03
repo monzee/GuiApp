@@ -21,16 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.backend;
+package ph.codeia.guiapp.logic;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
- * @param <Field> an enum of fields that the screen accepts input for
+ * @param <View> the view class this presenter can talk to
  */
-public interface Form<Field> {
-    void setError(Field field, String message);
-    String getError(Field field);
-    <T> void set(Field field, T value);
-    <T> T get(Field field);
+public interface ViewBound<View> {
+    void bind(View view);
 }

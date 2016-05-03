@@ -21,13 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.backend;
+package ph.codeia.guiapp.logic.chrome;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
- * @param <View> the view class this presenter can talk to
  */
-public interface ViewBound<View> {
-    void bind(View view);
+public abstract class ChromeContract {
+    public enum Screen { LOGIN, INDEX, DETAIL }
+
+    public interface View {
+        void tell(String message);
+        void show(Screen screen);
+    }
+
 }

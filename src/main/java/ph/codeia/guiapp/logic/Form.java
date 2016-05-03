@@ -21,18 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.backend.chrome;
+package ph.codeia.guiapp.logic;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
+ * @param <Field> an enum of fields that the screen accepts input for
  */
-public abstract class ChromeContract {
-    public enum Screen { LOGIN, INDEX, DETAIL }
-
-    public interface View {
-        void tell(String message);
-        void show(Screen screen);
-    }
-
+public interface Form<Field> {
+    void setError(Field field, String message);
+    String getError(Field field);
+    <T> void set(Field field, T value);
+    <T> T get(Field field);
 }

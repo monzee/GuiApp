@@ -35,9 +35,9 @@ import com.googlecode.lanterna.gui2.TextBox;
 import dagger.Module;
 import dagger.Provides;
 import java.util.Arrays;
-import ph.codeia.guiapp.backend.chrome.ChromeContract;
-import ph.codeia.guiapp.backend.login.LoginContract;
-import ph.codeia.guiapp.backend.login.LoginContract.Field;
+import ph.codeia.guiapp.logic.chrome.ChromeContract;
+import ph.codeia.guiapp.logic.login.LoginContract;
+import ph.codeia.guiapp.logic.login.LoginContract.Field;
 
 /**
  *

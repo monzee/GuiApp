@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.backend.login;
+package ph.codeia.guiapp.logic.login;
 
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import ph.codeia.guiapp.backend.Form;
-import ph.codeia.guiapp.backend.ViewBound;
+import ph.codeia.guiapp.logic.Form;
+import ph.codeia.guiapp.logic.ViewBound;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.http.FormUrlEncoded;
