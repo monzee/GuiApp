@@ -44,11 +44,6 @@ import ph.codeia.guiapp.logic.login.LoginContract.Field;
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
 public class Login extends AbstractWindow implements LoginContract.View {
-    private final TextBox username = new TextBox();
-    private final TextBox password = new TextBox();
-    private final Label usernameError = new Label("");
-    private final Label passwordError = new Label("");
-    private final ChromeContract.View chrome;
 
     @Module
     public static class Provider {
@@ -64,6 +59,12 @@ public class Login extends AbstractWindow implements LoginContract.View {
             return v;
         }
     }
+
+    private final TextBox username = new TextBox();
+    private final TextBox password = new TextBox();
+    private final Label usernameError = new Label("");
+    private final Label passwordError = new Label("");
+    private final ChromeContract.View chrome;
 
     public Login(LoginContract.Presenter p, ChromeContract.View c) {
         super("Login");

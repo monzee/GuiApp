@@ -29,6 +29,13 @@ import ph.codeia.guiapp.tui.Chrome;
 import ph.codeia.guiapp.tui.Login;
 
 /**
+ * Text UI component/injector/service locator.
+ *
+ * All view-related modules should be declared here. This should be exposed as a
+ * service in the main application component.
+ *
+ * Implementations of the view contracts in other platforms should be structured
+ * similarly to this.
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */

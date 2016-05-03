@@ -29,6 +29,9 @@ import ph.codeia.guiapp.logic.login.LoginContract;
 import ph.codeia.guiapp.tui.Chrome;
 
 /**
+ * This is the main injector/service locator.
+ *
+ * All non-view related modules should be declared here as dependencies.
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */

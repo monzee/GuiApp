@@ -24,6 +24,7 @@
 package ph.codeia.guiapp.tui;
 
 import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.AbstractWindow;
 import com.googlecode.lanterna.gui2.Label;
@@ -32,7 +33,6 @@ import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.ResizeListener;
 import com.googlecode.lanterna.terminal.Terminal;
 import dagger.Lazy;
 import dagger.Module;
@@ -48,8 +48,7 @@ import ph.codeia.guiapp.logic.chrome.ChromeContract;
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-public class Chrome extends AbstractWindow
-        implements ChromeContract.View, TextGUI.Listener {
+public class Chrome extends AbstractWindow implements ChromeContract.View {
 
     @Module
     public static class Provider {
@@ -103,27 +102,13 @@ public class Chrome extends AbstractWindow
         }
     }
 
-    @Override
-    public boolean onUnhandledKeyStroke(TextGUI tgui, KeyStroke ks) {
-        if (ks.getKeyType() == KeyType.Escape) {
-            close();
-            return true;
-        }
-        return false;
-    }
-
-
     public void run() {
         gui.addWindow(this);
-        gui.addListener(this);
-
-        ResizeListener didResize = (term, size) -> {
-            setPosition(new TerminalPosition(0, size.getRows() - 1));
-        };
-        terminal.addResizeListener(didResize);
+        gui.addListener(this::didPressKey);
+        terminal.addResizeListener(this::didResize);
 
         Screen s = gui.getScreen();
-        didResize.onResized(terminal, s.getTerminalSize());
+        didResize(terminal, s.getTerminalSize());
         show(ChromeContract.Screen.LOGIN);
         try {
             s.startScreen();
@@ -132,5 +117,17 @@ public class Chrome extends AbstractWindow
         } catch (IOException e) {
             log.log(Level.SEVERE, "io error while starting/stopping screen", e);
         }
+    }
+
+    private boolean didPressKey(TextGUI tgui, KeyStroke ks) {
+        if (ks.getKeyType() == KeyType.Escape) {
+            close();
+            return true;
+        }
+        return false;
+    }
+
+    private void didResize(Terminal term, TerminalSize size) {
+        setPosition(new TerminalPosition(0, size.getRows() - 1));
     }
 }
