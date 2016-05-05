@@ -23,6 +23,7 @@
  */
 package ph.codeia.guiapp.tui;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -35,8 +36,6 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import dagger.Lazy;
-import dagger.Module;
-import dagger.Provides;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -50,20 +49,6 @@ import ph.codeia.guiapp.logic.chrome.ChromeContract;
  */
 public class Chrome extends AbstractWindow implements ChromeContract.View {
 
-    @Module
-    public static class Provider {
-        private final Chrome instance;
-
-        public Provider(Chrome c) {
-            instance = c;
-        }
-
-        @Provides
-        ChromeContract.View provide() {
-            return instance;
-        }
-    }
-
     @Inject
     Logger log;
 
@@ -76,9 +61,13 @@ public class Chrome extends AbstractWindow implements ChromeContract.View {
     @Inject
     Lazy<Login> login;
 
+    @Inject
+    Lazy<Twitch> twitch;
+
     private final Label status = new Label("")
             .setBackgroundColor(TextColor.ANSI.BLUE)
-            .setForegroundColor(new TextColor.RGB(255, 255, 0));
+            .setForegroundColor(TextColor.ANSI.YELLOW)
+            .addStyle(SGR.BOLD);
 
     public Chrome() {
         super();
@@ -97,6 +86,9 @@ public class Chrome extends AbstractWindow implements ChromeContract.View {
         case LOGIN:
             gui.addWindow(login.get());
             break;
+        case TWITCH:
+            gui.addWindow(twitch.get());
+            break;
         default:
             break;
         }
@@ -109,7 +101,7 @@ public class Chrome extends AbstractWindow implements ChromeContract.View {
 
         Screen s = gui.getScreen();
         didResize(terminal, s.getTerminalSize());
-        show(ChromeContract.Screen.LOGIN);
+        show(ChromeContract.Screen.TWITCH);
         try {
             s.startScreen();
             gui.waitForWindowToClose(this);

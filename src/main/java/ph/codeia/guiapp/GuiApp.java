@@ -23,18 +23,15 @@
  */
 package ph.codeia.guiapp;
 
-import ph.codeia.guiapp.tui.Chrome;
-
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
 public final class GuiApp {
     public static void main(String[] args) {
-        Chrome c = new Chrome();
         DaggerApplication.create()
-                .cli(new Chrome.Provider(c))
-                .inject(c)
+                .cli()
+                .chrome()
                 .run();
         System.out.println("Exiting; waiting for idle threads to die.");
     }

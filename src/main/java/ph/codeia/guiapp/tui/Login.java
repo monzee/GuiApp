@@ -32,8 +32,6 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutData;
 import com.googlecode.lanterna.gui2.Panels;
 import com.googlecode.lanterna.gui2.TextBox;
-import dagger.Module;
-import dagger.Provides;
 import java.util.Arrays;
 import ph.codeia.guiapp.logic.chrome.ChromeContract;
 import ph.codeia.guiapp.logic.login.LoginContract;
@@ -44,21 +42,6 @@ import ph.codeia.guiapp.logic.login.LoginContract.Field;
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
 public class Login extends AbstractWindow implements LoginContract.View {
-
-    @Module
-    public static class Provider {
-        @Provides
-        static LoginContract.View provideInterface(Login view) {
-            return view;
-        }
-
-        @Provides
-        static Login provide(LoginContract.Presenter p, ChromeContract.View c) {
-            Login v = new Login(p, c);
-            p.bind(v);
-            return v;
-        }
-    }
 
     private final TextBox username = new TextBox();
     private final TextBox password = new TextBox();

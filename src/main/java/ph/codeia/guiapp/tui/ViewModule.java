@@ -21,27 +21,58 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp;
+package ph.codeia.guiapp.tui;
 
-import dagger.Component;
+import dagger.MembersInjector;
+import dagger.Module;
+import dagger.Provides;
 import javax.inject.Singleton;
+import ph.codeia.guiapp.logic.chrome.ChromeContract;
 import ph.codeia.guiapp.logic.login.LoginContract;
 import ph.codeia.guiapp.logic.twitch.TwitchContract;
 
 /**
- * This is the main injector/service locator.
- *
- * All non-view related modules should be declared here as dependencies.
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-@Singleton
-@Component(modules = {
-    GlobalModule.class,
-    ServicesModule.class,
-    LoginContract.Defaults.class,
-    TwitchContract.Provider.class,
-})
-public interface Application {
-    CliContext cli();
+@Module
+public class ViewModule {
+    @Provides
+    static ChromeContract.View chromeInterface(Chrome view) {
+        return view;
+    }
+
+    @Provides
+    @Singleton
+    static Chrome chrome(MembersInjector<Chrome> injector) {
+        Chrome view = new Chrome();
+        injector.injectMembers(view);
+        return view;
+    }
+
+    @Provides
+    static TwitchContract.View twitchInterface(Twitch view) {
+        return view;
+    }
+
+    @Provides
+    static Twitch twitch(MembersInjector<Twitch> injector) {
+        Twitch view = new Twitch();
+        injector.injectMembers(view);
+        view.presenter.bind(view);
+        view.chrome.tell("ready.");
+        return view;
+    }
+
+    @Provides
+    static LoginContract.View loginInterface(Login view) {
+        return view;
+    }
+
+    @Provides
+    static Login login(LoginContract.Presenter p, ChromeContract.View c) {
+        Login v = new Login(p, c);
+        p.bind(v);
+        return v;
+    }
 }

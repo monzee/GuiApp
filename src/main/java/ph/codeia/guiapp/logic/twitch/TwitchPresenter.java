@@ -21,18 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic.chrome;
+package ph.codeia.guiapp.logic.twitch;
+
+import javax.inject.Inject;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
  */
-public abstract class ChromeContract {
-    public enum Screen { LOGIN, TWITCH }
+public class TwitchPresenter implements TwitchContract.Presenter {
+    private TwitchContract.View view;
 
-    public interface View {
-        void tell(String message);
-        void show(Screen screen);
+    @Inject
+    public TwitchPresenter() {
     }
 
+    @Override
+    public void watch(TwitchContract.Stream stream) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void say(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void bind(TwitchContract.View view) {
+        this.view = view;
+    }
 }

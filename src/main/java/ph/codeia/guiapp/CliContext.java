@@ -26,7 +26,7 @@ package ph.codeia.guiapp;
 import dagger.Subcomponent;
 import javax.inject.Singleton;
 import ph.codeia.guiapp.tui.Chrome;
-import ph.codeia.guiapp.tui.Login;
+import ph.codeia.guiapp.tui.ViewModule;
 
 /**
  * Text UI component/injector/service locator.
@@ -42,9 +42,8 @@ import ph.codeia.guiapp.tui.Login;
 @Singleton
 @Subcomponent(modules = {
     LanternaModule.class,
-    Login.Provider.class,
-    Chrome.Provider.class,
+    ViewModule.class,
 })
 public interface CliContext {
-    Chrome inject(Chrome c);
+    Chrome chrome();
 }
