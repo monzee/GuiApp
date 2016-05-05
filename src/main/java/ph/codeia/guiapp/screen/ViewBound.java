@@ -21,53 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic.twitch;
-
-import dagger.Module;
-import dagger.Provides;
-import java.util.List;
-import ph.codeia.guiapp.logic.ViewBound;
+package ph.codeia.guiapp.screen;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
+ * @param <View> the view class this presenter can talk to
  */
-public abstract class TwitchContract {
-    public interface View {
-        void show(ChannelInfo info);
-        void show(List<Stream> playlist);
-        void show(ChatLine line);
-    }
-
-    public interface Presenter extends ViewBound<View> {
-        void watch(Stream stream);
-        void say(String message);
-    }
-
-    public interface ChannelInfo {
-        String getName();
-        String getGame();
-        int getUptime();
-        int getViewerCount();
-        void setViewerCount(int count);
-    }
-
-    public interface Stream {
-        String getTitle();
-        String getUrl();
-    }
-
-    public interface ChatLine {
-        String getFrom();
-        String getMessage();
-        // timestamp
-    }
-
-    @Module
-    public static class Provider {
-        @Provides
-        static Presenter providePresenter(TwitchPresenter p) {
-            return p;
-        }
-    }
+public interface ViewBound<View> {
+    void bind(View view);
 }

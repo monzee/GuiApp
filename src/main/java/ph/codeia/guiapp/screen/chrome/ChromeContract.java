@@ -21,14 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic;
+package ph.codeia.guiapp.screen.chrome;
 
 /**
  *
  * @author Mon Zafra &lt;mz@codeia.ph&gt;
- * @param <Field>
  */
-public interface Validates<Field> {
-    void setError(Field f, String message);
-    String getError(Field f);
+public abstract class ChromeContract {
+    public enum Screen { LOGIN, TWITCH }
+
+    public interface View {
+        void tell(String message);
+        void show(Screen screen);
+    }
+
 }

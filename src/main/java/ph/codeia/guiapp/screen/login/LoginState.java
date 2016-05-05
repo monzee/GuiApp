@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic.login;
+package ph.codeia.guiapp.screen.login;
 
 import javax.inject.Inject;
 

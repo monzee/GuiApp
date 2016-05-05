@@ -33,9 +33,9 @@ import com.googlecode.lanterna.gui2.LayoutData;
 import com.googlecode.lanterna.gui2.Panels;
 import com.googlecode.lanterna.gui2.TextBox;
 import java.util.Arrays;
-import ph.codeia.guiapp.logic.chrome.ChromeContract;
-import ph.codeia.guiapp.logic.login.LoginContract;
-import ph.codeia.guiapp.logic.login.LoginContract.Field;
+import ph.codeia.guiapp.screen.chrome.ChromeContract;
+import ph.codeia.guiapp.screen.login.LoginContract;
+import ph.codeia.guiapp.screen.login.LoginContract.Field;
 
 /**
  *

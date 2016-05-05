@@ -27,9 +27,9 @@ import dagger.MembersInjector;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import ph.codeia.guiapp.logic.chrome.ChromeContract;
-import ph.codeia.guiapp.logic.login.LoginContract;
-import ph.codeia.guiapp.logic.twitch.TwitchContract;
+import ph.codeia.guiapp.screen.chrome.ChromeContract;
+import ph.codeia.guiapp.screen.login.LoginContract;
+import ph.codeia.guiapp.screen.twitch.TwitchContract;
 
 /**
  *

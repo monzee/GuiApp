@@ -34,8 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import ph.codeia.guiapp.logic.chrome.ChromeContract;
-import ph.codeia.guiapp.logic.twitch.TwitchContract;
+import ph.codeia.guiapp.screen.chrome.ChromeContract;
+import ph.codeia.guiapp.screen.twitch.TwitchContract;
 
 /**
  *

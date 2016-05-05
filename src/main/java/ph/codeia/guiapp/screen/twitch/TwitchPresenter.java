@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic.twitch;
+package ph.codeia.guiapp.screen.twitch;
 
 import javax.inject.Inject;
 

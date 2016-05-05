@@ -25,8 +25,8 @@ package ph.codeia.guiapp;
 
 import dagger.Component;
 import javax.inject.Singleton;
-import ph.codeia.guiapp.logic.login.LoginContract;
-import ph.codeia.guiapp.logic.twitch.TwitchContract;
+import ph.codeia.guiapp.screen.login.LoginContract;
+import ph.codeia.guiapp.screen.twitch.TwitchContract;
 
 /**
  * This is the main injector/service locator.

@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ph.codeia.guiapp.logic.login;
+package ph.codeia.guiapp.screen.login;
 
 import javax.inject.Inject;
-import ph.codeia.guiapp.logic.login.LoginContract.Field;
+import ph.codeia.guiapp.screen.login.LoginContract.Field;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
